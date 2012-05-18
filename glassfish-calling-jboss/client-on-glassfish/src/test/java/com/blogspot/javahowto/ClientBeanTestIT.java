@@ -15,13 +15,14 @@ public class ClientBeanTestIT {
 
     @BeforeClass
     public static void beforeClass() {
-        lookupName = System.getProperty("lookup.name");
-        targetEjbJndi = System.getProperty("target.ejb.jndi");
+        lookupName = System.getProperty("lookup.name", "java:global/client-on-glassfish/ClientBean");
+        targetEjbJndi = System.getProperty("target.ejb.jndi", "ejb:/service-on-jboss/ServiceBean!com.blogspot.javahowto.ServiceIF");
     }
 
     @Test
     public void invokeClientBean() throws NamingException {
         ClientIF clientBean = InitialContext.doLookup(lookupName);
+        System.out.printf("Look up ClientBean by name %s, got %s%n", lookupName, clientBean);
         String result = clientBean.clientHello(targetEjbJndi);
         System.out.printf("Result from clientBean.clientHello(): %s%n%n", result);
         assertNotNull(result);

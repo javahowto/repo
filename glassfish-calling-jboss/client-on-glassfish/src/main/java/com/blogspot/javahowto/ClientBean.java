@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 @Stateless
@@ -17,6 +18,7 @@ public class ClientBean implements ClientIF {
         String result = null;
         try {
             InitialContext ic = new InitialContext(getJBossJndiProperties());
+            System.out.printf("About to look up ServiceBean by jndi %s%n", targetEjbJndi);
             ServiceIF serviceBean = (ServiceIF) ic.lookup(targetEjbJndi);
             result = serviceBean.serviceHello();
         } catch (NamingException e) {
@@ -27,10 +29,18 @@ public class ClientBean implements ClientIF {
 
     private Properties getJBossJndiProperties() {
         Properties props = new Properties();
+        InputStream is = null;
         try {
-            props.load(getClass().getResourceAsStream(jbossJndiPropertiesPath));
+            is = getClass().getResourceAsStream(jbossJndiPropertiesPath);
+            props.load(is);
         } catch (IOException e) {
             System.out.println("Failed to load " + jbossJndiPropertiesPath);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                //ignore
+            }
         }
         System.out.println("Got jboss-jndi.properties: " + props);
         return props;

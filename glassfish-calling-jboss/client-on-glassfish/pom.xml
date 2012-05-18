@@ -8,11 +8,30 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <packaging>ejb</packaging>
     <artifactId>client-on-glassfish</artifactId>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-dependencies</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>com.blogspot.javahowto</includeGroupIds>
+                            <includeArtifactIds>service-on-jboss</includeArtifactIds>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
             <plugin>
                 <groupId>org.glassfish.maven.plugin</groupId>
                 <artifactId>maven-glassfish-plugin</artifactId>
@@ -34,7 +53,7 @@
                         </component>
                     </components>
                 </configuration>
-                
+
                 <executions>
                     <execution>
                         <id>deploy-client-ejb</id>
@@ -51,7 +70,6 @@
                         </goals>
                     </execution>
                 </executions>
-                
             </plugin>
 
             <plugin>
@@ -60,7 +78,8 @@
                 <configuration>
                     <systemPropertyVariables>
                         <lookup.name>java:global/${project.artifactId}/ClientBean</lookup.name>
-                        <target.ejb.jndi>ejb:/service-on-jboss//ServiceBean!com.blogspot.javahowto.ServiceIF</target.ejb.jndi>
+                        <target.ejb.jndi>ejb:/service-on-jboss/ServiceBean!com.blogspot.javahowto.ServiceIF
+                        </target.ejb.jndi>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
@@ -87,6 +106,7 @@
             <groupId>com.blogspot.javahowto</groupId>
             <artifactId>service-on-jboss</artifactId>
             <version>1.0</version>
+            <type>ejb-client</type>
         </dependency>
     </dependencies>
 </project>
