@@ -13,6 +13,12 @@
         <module>client-on-glassfish</module>
     </modules>
 
+    <developers>
+        <developer>
+            <url>http://javahowto.blogspot.com/</url>
+        </developer>
+    </developers>
+
     <build>
         <plugins>
             <plugin>

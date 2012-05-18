@@ -11,6 +11,12 @@
     <packaging>ejb</packaging>
     <artifactId>service-on-jboss</artifactId>
 
+    <developers>
+        <developer>
+            <url>http://javahowto.blogspot.com/</url>
+        </developer>
+    </developers>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
