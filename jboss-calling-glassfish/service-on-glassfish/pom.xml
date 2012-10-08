@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jboss-calling-glassfish</artifactId>
+        <groupId>com.blogspot.javahowto</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>ejb</packaging>
+    <artifactId>service-on-glassfish</artifactId>
+
+    <developers>
+        <developer>
+            <url>http://javahowto.blogspot.com/</url>
+        </developer>
+    </developers>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.glassfish.maven.plugin</groupId>
+                <artifactId>maven-glassfish-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <glassfishDirectory>${env.GLASSFISH_HOME}</glassfishDirectory>
+                    <user>admin</user>
+                    <passwordFile>${env.HOME}/.asadminpass</passwordFile>
+                    <debug>false</debug>
+                    <echo>true</echo>
+                    <domain>
+                        <name>domain1</name>
+                        <adminPort>4848</adminPort>
+                    </domain>
+                    <components>
+                        <component>
+                            <name>${project.artifactId}</name>
+                            <artifact>${project.build.directory}/${project.build.finalName}.jar</artifact>
+                        </component>
+                    </components>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>deploy-service-ejb</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>undeploy-service-ejb</id>
+                        <phase>post-clean</phase>
+                        <goals>
+                            <goal>undeploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
