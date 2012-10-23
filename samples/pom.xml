@@ -11,6 +11,7 @@
         <module>asynccontext</module>
         <module>dynamic-servlet</module>
         <module>servlet</module>
+        <module>ejb-in-war</module>
     </modules>
     <packaging>pom</packaging>
 
