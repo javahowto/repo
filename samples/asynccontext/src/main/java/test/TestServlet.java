@@ -20,27 +20,6 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         ac.setTimeout(2000);
         ac.addListener(ac.createListener(TestAsyncListener.class));
-
-//        ac.addListener(new TestAsyncListener());
-
-//        ac.addListener(new AsyncListener() {
-//            public void onComplete(AsyncEvent event) {
-//                System.out.println("AsyncListener.onComplete");
-//            }
-//
-//            public void onError(AsyncEvent event) {
-//                System.out.println("AsyncListener.onError");
-//            }
-//
-//            public void onStartAsync(AsyncEvent event) {
-//                System.out.println("AsyncListener.onStartAsync");
-//            }
-//
-//            public void onTimeout(AsyncEvent event) {
-//                System.out.println("AsyncListener.onTimeout");
-//            }
-//        });
-
     }
 
     @Override

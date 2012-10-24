@@ -7,16 +7,15 @@ import javax.servlet.AsyncContext;
 import javax.servlet.AsyncEvent;
 
 public class TestAsyncListener implements javax.servlet.AsyncListener {
-    @PreDestroy
     @PostConstruct
     private void ps() {
-        System.out.println("## in PostConstruct or PreDestroy of: " + this);
+        System.out.println("## in PostConstruct of: " + this);
     }
 
-//    @PreDestroy
-//    private void pd() {
-//        System.out.println("## in pd of: " + this);
-//    }
+    @PreDestroy
+    private void pd() {
+        System.out.println("## in PreDestroy of: " + this);
+    }
 
     @Override
     public void onComplete(AsyncEvent asyncEvent) throws IOException {
