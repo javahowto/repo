@@ -12,6 +12,7 @@
         <module>dynamic-servlet</module>
         <module>servlet</module>
         <module>ejb-in-war</module>
+        <module>env-entry</module>
     </modules>
     <packaging>pom</packaging>
 
